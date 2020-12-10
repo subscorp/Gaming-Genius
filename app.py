@@ -9,10 +9,12 @@ import json
 from html import unescape
 import os
 from models import Users, database, Leaderboard, EasterEggs, UserEasterEggs, Achievements, UserAchievements
+from playhouse.db_url import connect
 
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
+db = connect(os.environ.get('DATABASE_URL')) 
 
 
 def get_quiz():
