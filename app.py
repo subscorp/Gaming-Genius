@@ -130,13 +130,13 @@ def show_profile():
         user_dict['num_achievements'] = get_num_achievements(user_id)
         user_dict['Achievements'] = get_achievements(user_id)
 
-    return render_template('profile.html', user_dict=user_dict)
+    return render_template('profile.j2', user_dict=user_dict)
 
 
 @app.route('/sign_up', methods=['GET', 'POST'])
 def sign_up():
     if request.method == 'GET':
-        return render_template('sign_up.html')
+        return render_template('sign_up.j2')
 
     salt = bcrypt.gensalt(prefix=b'2b', rounds=10)
     unhashed_password = request.form['password'].encode('utf-8')
@@ -151,31 +151,31 @@ def sign_up():
     session['password'] = hashed_password
     session['email'] = user.email
     message = 'Hi ' + session['user'] + ','
-    return render_template('/index.html', message=message)
+    return render_template('/index.j2', message=message)
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
-        return render_template('login.html')
+        return render_template('login.j2')
 
     username = request.form['username']
     password = request.form['password'].encode('utf-8')
     if username is None:
-        return render_template("error_page.html", error='400', info="No username supplied")
+        return render_template("error_page.j2", error='400', info="No username supplied")
     try:
         user = Users.select().where(Users.username == username).get()
     except peewee.DoesNotExist:
-        return render_template("error_page.html", error='404', info="user not found")
+        return render_template("error_page.j2", error='404', info="user not found")
     actual_password = str(user.password).encode('utf-8')
     if not bcrypt.checkpw(password, actual_password):
-        return render_template("error_page.html", error='403', info="username and password don't match")
+        return render_template("error_page.j2", error='403', info="username and password don't match")
     
     session['user'] = user.username
     session['password'] = actual_password
     session['email'] = user.email
     message = 'Hi ' + session['user'] + ','
-    return render_template('/index.html', message=message)
+    return render_template('/index.j2', message=message)
 
 
 @app.route('/game', methods=['GET', 'POST'])
@@ -196,7 +196,7 @@ def play_game():
         session['current_question'] = 1
         session['correct_answer'] = choices.index(unescape(q['answer']))
         session['score'] = 0
-        return render_template('trivia_game.html', **fields)
+        return render_template('trivia_game.j2', **fields)
 
     questions = session.get('questions', None)
     user_answer = int(request.form['choice'])
@@ -219,7 +219,7 @@ def play_game():
             'answer': unescape(q['answer'])
         }
         session['correct_answer'] = choices.index(unescape(q['answer']))
-        return render_template('trivia_game.html', **fields)
+        return render_template('trivia_game.j2', **fields)
 
     if session['current_question'] == 11:
         if 'user' in session:
@@ -250,14 +250,14 @@ def play_game():
                 update_achievement_by_id(user_id, achievement_id)
 
             check_for_platinum(user_id)
-        return render_template('result.html', score=session.get('score', None))
+        return render_template('result.j2', score=session.get('score', None))
 
 
 @app.route('/leaderboard', methods=['GET', 'POST'])
 def leaderboard():
     if request.method == "GET":
         details = get_leaderboard_details()
-        return render_template('leaderboard.html', details=details)
+        return render_template('leaderboard.j2', details=details)
     
     if 'user' in session:
         name = session['user']
@@ -265,14 +265,14 @@ def leaderboard():
         query = Leaderboard.delete().where(Leaderboard.user_id == user_id)
         query.execute()
     details = get_leaderboard_details()
-    return render_template('leaderboard.html', details=details)
+    return render_template('leaderboard.j2', details=details)
 
 
 @app.route('/easter_eggs', methods=['GET', 'POST'])
 def easter_eggs():
     to_add = True
     if request.method == "GET":
-        return render_template('easter_eggs.html')
+        return render_template('easter_eggs.j2')
     easter_egg_source = request.form['easter_egg'].lower()
     if type(easter_egg_source) == str:
         easter_egg_source = handle_common_cases(easter_egg_source)
@@ -306,15 +306,15 @@ def easter_eggs():
               
         if _id:
             result = "Nice! you found one!"
-            return render_template('easter_eggs_result.html', result=result)
+            return render_template('easter_eggs_result.j2', result=result)
         else:
             result = "Maybe next time..."
-        return render_template('easter_eggs_result.html', result=result) 
+        return render_template('easter_eggs_result.j2', result=result) 
 
 
 @app.route('/easter_eggs_result', methods=['GET'])
 def easter_eggs_result():
-    render_template('easter_eggs_result.html')
+    render_template('easter_eggs_result.j2')
 
 
 @app.route('/')
@@ -323,7 +323,7 @@ def home_page():
         message = 'Hi ' + session['user'] + ',' 
     else:
         message = ""
-    return render_template('index.html', message=message)
+    return render_template('index.j2', message=message)
 
 
 if __name__ == '__main__':
