@@ -1,5 +1,4 @@
 import os
-from playhouse.db_url import connect  # for heroku 
 
 
 from peewee import ( 
@@ -7,8 +6,7 @@ from peewee import (
     SqliteDatabase, TextField,
 )
 
-#database = SqliteDatabase('trivia_game.db')
-db = connect(os.environ.get('DATABASE_URL')) # for heroku 
+database = SqliteDatabase('trivia_game.db')
 
 
 class UnknownField(object):
@@ -18,7 +16,7 @@ class UnknownField(object):
 
 class BaseModel(Model):
     class Meta:
-        database = db
+        database = database
 
 
 class Users(BaseModel):

@@ -13,12 +13,11 @@ from models import EasterEggs
 from models import Leaderboard
 from models import UserAchievements
 from models import UserEasterEggs, Users
-from models import db
+from models import database
 
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
-
 
 def get_quiz():
     r = requests.get('https://opentdb.com/api.php?amount=10&category=15&difficulty=easy&type=multiple')
@@ -320,26 +319,6 @@ def easter_eggs_result():
 
 @app.route('/')
 def home_page():
-    easter_eggs = ['didyouknowgaming?', 'reggie', 'pacman', 'nintendo power', 'portal', 'zelda 2', 'star fox']
-    for easter_egg in easter_eggs:
-        egg = EasterEggs(name=easter_egg)
-        egg.save()
-
-    achievements = (
-        ("That's what you get for guessing...", '../static/guess.jpg'),
-        ("That's just ok..", "../static/pass.jpg"),
-        ('Excellent! you must be cheating...', "../static/crash.jpg"),
-        ("Top of the game!", "../static/top_ten.jpg"),
-        ("First easter egg! gotta catch 'em all!", "../static/addict.jpg"),
-        ('Easter egg hunter!', "../static/hunter.jpg"),
-        ("Completionist!", "../static/Completionist.jpg")
-    )
-    for achievement in achievements:
-        achievement_name = achievement[0]
-        uri = achievement[1]
-        ach = Achievements(achievement_name=achievement_name, uri=uri)
-        ach.save()
-    
     if 'user' in session:
         message = 'Hi ' + session['user'] + ',' 
     else:
