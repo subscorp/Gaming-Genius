@@ -1,18 +1,22 @@
-import bcrypt
-from flask import Flask, render_template, request, session
-from playhouse.shortcuts import model_to_dict
-import peewee
-import requests
+import os
 import random
 from html import unescape
-import os
-from models import Users, database, Leaderboard, EasterEggs, UserEasterEggs, UserAchievements
-from playhouse.db_url import connect # for heroku 
+
+import bcrypt
+from flask import Flask, render_template, request, session
+import peewee
+from playhouse.shortcuts import model_to_dict
+import requests
+
+from models import EasterEggs
+from models import Leaderboard
+from models import UserAchievements
+from models import UserEasterEggs, Users
+from models import db
 
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
-db = connect(os.environ.get('DATABASE_URL')) # for heroku 
 
 
 def get_quiz():
@@ -95,9 +99,9 @@ def update_achievement_by_id(user_id, achievement_id):
         achievement.save()
     
 
-@app.before_request
+"""@app.before_request
 def before_request():
-    db.connect(os.environ.get('DATABASE_URL')) # for heroku 
+    db.connect(os.environ.get('DATABASE_URL'))  # for heroku 
     # database.connect()
     
 
@@ -105,7 +109,7 @@ def before_request():
 def close_db(_):
     if not database.is_closed():
         db.close()
-
+"""
 
 @app.route('/profile')
 def show_profile():

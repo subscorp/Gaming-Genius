@@ -5,18 +5,7 @@ import models
 
 def connect():
     return sqlite3.connect("trivia_game.db")
-
-
-def create_tables(db):
-    TABLES = [
-        models.Users, models.Achievements, models.EasterEggs, models.Leaderboard, models.UserAchievements,
-        models.UserEasterEggs,
-    ]
-
-    with models.database.connection_context():
-        models.database.create_tables(TABLES, safe=True)
-        models.database.commit()
-
+    
 
 def insert_into(db, query, values):
     cursor = db.cursor()
@@ -25,32 +14,32 @@ def insert_into(db, query, values):
 
 
 def insert_into_users(db, values):
-    query = f"INSERT INTO users (username, password, email) VALUES (?, ?, ?)"
+    query = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)"
     insert_into(db, query, values)
 
 
 def insert_into_achievements(db, values):
-    query = f"INSERT INTO achievements (achievement_name, uri) VALUES (?, ?)"
+    query = "INSERT INTO achievements (achievement_name, uri) VALUES (?, ?)"
     insert_into(db, query, values)
 
 
 def insert_into_easter_eggs(db, values):
-    query = f"INSERT INTO easter_eggs (name) VALUES (?)"
+    query = "INSERT INTO easter_eggs (name) VALUES (?)"
     insert_into(db, query, values)
 
 
 def insert_into_leaderboard(db, values):
-    query = f"INSERT INTO leaderboard (name, score) VALUES (?, ?)"
+    query = "INSERT INTO leaderboard (name, score) VALUES (?, ?)"
     insert_into(db, query, values)
 
 
 def insert_into_user_achievements(db, values):
-    query = f"INSERT INTO user_achievements (user_id, achievement_id) VALUES (?, ?)"
+    query = "INSERT INTO user_achievements (user_id, achievement_id) VALUES (?, ?)"
     insert_into(db, query, values)
 
 
 def insert_into_user_easter_eggs(db, values):
-    query = f"INSERT INTO user_easter_eggs (user_id, easter_egg_id) VALUES (?, ?)"
+    query = "INSERT INTO user_easter_eggs (user_id, easter_egg_id) VALUES (?, ?)"
     insert_into(db, query, values)
 
 
