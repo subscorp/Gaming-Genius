@@ -1,4 +1,3 @@
-import database
 import models
 
 
@@ -11,8 +10,7 @@ def create_tables(db):
     with models.db.connection_context():
         models.db.create_tables(TABLES, safe=True)
         models.db.commit()
-
-
+        
 # db = models.database
 # db = connect(os.environ.get('DATABASE_URL')) # for heroku 
 # database.create_tables(db)
