@@ -1,5 +1,5 @@
 from peewee import ( 
-    BareField, DateField, ForeignKeyField, IntegerField, Model,
+    BareField, ForeignKeyField, IntegerField, Model,
     SqliteDatabase, TextField,
 )
 

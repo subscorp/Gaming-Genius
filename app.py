@@ -1,20 +1,18 @@
-import sqlite3
 import bcrypt
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, session
 from playhouse.shortcuts import model_to_dict
 import peewee
 import requests
 import random
-import json
 from html import unescape
 import os
-from models import Users, database, Leaderboard, EasterEggs, UserEasterEggs, Achievements, UserAchievements
-from playhouse.db_url import connect
+from models import Users, database, Leaderboard, EasterEggs, UserEasterEggs, UserAchievements
+from playhouse.db_url import connect # for heroku 
 
 
 app = Flask(__name__)
 app.secret_key = os.urandom(32)
-db = connect(os.environ.get('DATABASE_URL')) 
+db = connect(os.environ.get('DATABASE_URL')) # for heroku 
 
 
 def get_quiz():
@@ -31,13 +29,13 @@ def get_quiz():
     return quiz
 
 
-"""
-Credit for the following function: 
-https://stackoverflow.com/questions/37006869/
-peewee-using-model-get-with-a-default-value-instead-of-throwing-an-exception
-Profile: https://stackoverflow.com/users/5551941/wyattis
-"""
 def get_without_failing(Model, query):
+    """
+    Credit for the following function: 
+    https://stackoverflow.com/questions/37006869/
+    peewee-using-model-get-with-a-default-value-instead-of-throwing-an-exception
+    Profile: https://stackoverflow.com/users/5551941/wyattis
+    """
     results = Model.select().where(query).limit(1)
     return results[0] if len(results) > 0 else None
 
@@ -99,13 +97,14 @@ def update_achievement_by_id(user_id, achievement_id):
 
 @app.before_request
 def before_request():
-    database.connect()
+    db.connect(os.environ.get('DATABASE_URL')) # for heroku 
+    # database.connect()
     
 
 @app.teardown_request
 def close_db(_):
     if not database.is_closed():
-        database.close()
+        db.close()
 
 
 @app.route('/profile')
@@ -159,14 +158,14 @@ def login():
     username = request.form['username']
     password = request.form['password'].encode('utf-8')
     if username is None:
-        return render_template("error_page.html",error='400', info="No username supplied")
+        return render_template("error_page.html", error='400', info="No username supplied")
     try:
         user = Users.select().where(Users.username == username).get()
     except peewee.DoesNotExist:
-        return render_template("error_page.html",error='404', info="user not found")
+        return render_template("error_page.html", error='404', info="user not found")
     actual_password = str(user.password).encode('utf-8')
     if not bcrypt.checkpw(password, actual_password):
-        return render_template("error_page.html",error='403', info="username and password don't match")
+        return render_template("error_page.html", error='403', info="username and password don't match")
     
     session['user'] = user.username
     session['password'] = actual_password
@@ -247,10 +246,10 @@ def play_game():
                 update_achievement_by_id(user_id, achievement_id)
 
             check_for_platinum(user_id)
-        return render_template('result.html',  score=session.get('score', None))
+        return render_template('result.html', score=session.get('score', None))
 
 
-@app.route('/leaderboard', methods=['GET','POST'])
+@app.route('/leaderboard', methods=['GET', 'POST'])
 def leaderboard():
     if request.method == "GET":
         details = get_leaderboard_details()

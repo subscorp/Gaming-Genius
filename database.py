@@ -1,5 +1,7 @@
 import sqlite3
+
 import models
+
 
 def connect():
     return sqlite3.connect("trivia_game.db")
@@ -18,7 +20,7 @@ def create_tables(db):
 
 def insert_into(db, query, values):
     cursor = db.cursor()
-    cursor.execute(query , values)
+    cursor.execute(query, values)
     db.commit()
 
 
@@ -52,9 +54,9 @@ def insert_into_user_easter_eggs(db, values):
     insert_into(db, query, values)
 
 
-def delete_by_id(db, table_name, id):
+def delete_by_id(db, table_name, _id):
     c = db.cursor()
-    c.execute(f"DELETE FROM {table_name} WHERE rowid = (?)", id)
+    c.execute(f"DELETE FROM {table_name} WHERE rowid = (?)", _id)
     db.commit()
     db.close()
 
@@ -64,16 +66,6 @@ def delete_multiple(db, table_name, List):
     c.execute(f"DELETE FROM {table_name} WHERE rowid in {List}")
     db.commit()
     db.close()
-
-
-""" TODO - change or delete
-def add_multiple(List):
-    conn = sqlite3.connect('trivia_game.db')
-    c = conn.cursor()
-    c.executemany("INSERT INTO customers VALUES (?, ?, ?)", List)
-    conn.commit()
-    conn.close()
-"""
 
 
 def print_all(db, table_name):
@@ -95,6 +87,7 @@ def search_by_username(db, username):
     db.commit()
     db.close()
 
+
 def fill_easter_eggs(db):
     names = ['didyouknowgaming?', 'reggie', 'pacman', 'nintendo power', 'portal', 'zelda 2', 'star fox']
     for name in names:
@@ -113,5 +106,3 @@ def fill_achievements(db):
     )
     for name in names:
         insert_into_achievements(db, name)
-    
-
