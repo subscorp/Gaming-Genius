@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--Credit for most of the following style: https://www.w3schools.com/howto/howto_js_topnav_responsive.asp -->
+    <link rel="stylesheet" href="static/style.css"> 
+    {% block head %}
+    {% endblock %}
+</head>
+<body> 
+    <br><br>
+    <div class="topnav" id="myTopnav">
+        <a href="/" class="active">Gaming Genius</a>
+        <a class="right" href="/sign_up">Sign up</a>
+        <a class="right" href="/login">Login</a>
+        <a class="right" href="/profile">Profile</a>
+        <a class="right" href="/easter_eggs">Easter eggs</a>
+        <a class="right" href="/leaderboard">Leaderboard</a>
+    </div>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer" class="fixed-bottom">
+        {% block footer %}
+        {% endblock %}
+    </div>
+</body>
+</html>

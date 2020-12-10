@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block head %}
+<link rel="stylesheet" href="../static/game_style.css" />
+{% endblock %}
+
+{% block content %}
+<h2>{{question}}</h2>
+<form action="/game" method="POST">
+    <button class="button" name="choice" value="0">{{first}}</button> 
+    <button class="button" name="choice" value="1">{{second}}</button>
+    <button class="button" name="choice" value="2">{{third}}</button>
+    <button class="button" name="choice" value="3">{{fourth}}</button>
+</form>
+{% endblock %}

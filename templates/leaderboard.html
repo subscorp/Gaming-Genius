@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block head %}
+<link rel="stylesheet" href="../static/leaderboard.css" />
+{% endblock %}
+{% block content %}
+<h1>Leaderboard</h1>
+<table id="scores" style="width:100%">
+    <tr>
+        <th>Rank</th>
+        <th>Username</th>
+        <th>Score</th>
+    </tr>
+    {% for score in details.Scores %}
+    <tr>
+        <td>{{loop.index}}</td>
+        <td>{{score[0]}}</td>
+        <td>{{score[1]}}</td>
+    </tr>
+    {% endfor %}
+</table>
+<form id="dummy_form" action="/leaderboard" method="POST">
+    <button class="button">Remove record</button>
+</form>
+{% endblock %}

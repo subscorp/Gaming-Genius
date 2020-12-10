@@ -1,0 +1,53 @@
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: #748357;
+}
+
+h1, h2 {
+	text-align: center;
+    color: rgb(57, 58, 53);
+}
+
+table, th, td {
+    border: 3px solid black;
+    border-collapse: collapse;
+}
+
+
+.label {
+    margin: 5px;
+    color: rgb(57, 58, 53);
+    font-size: 20px;
+}
+
+
+form.dummy_form {
+    align-self: center;
+    float: right;
+}
+
+button {
+	background: red;
+	border: 2px solid black;
+	border-radius: 5px;
+    padding: 5px;
+    margin-top: 10px;
+	color: rgb(20, 20, 20);
+    font-size: 20px;
+    transition-duration: .1s;
+}
+
+button:hover {
+	background: rgb(202, 209, 246);
+	border: 2px solid rgb(59, 96, 84);
+	color: black;
+    cursor: pointer;
+    align-self: center;
+}
+
+#scores {
+    text-align: center;
+    font-size: 20px;
+    color: black;
+    padding: 2px;
+}

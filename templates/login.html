@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block head %}
+<link rel="stylesheet" href="../static/registration.css" />
+{% endblock %}
+{% block content %}
+<h1>Login</h1>
+<form action="/login" method="POST">
+    <label class="label" for="username">username</label><br>
+    <input type="text" id="username" name="username"><br><br>
+    <label class="label" for="password">password</label><br>
+    <input type="password" id="password" name="password"><br>
+<button class="button">Login</button>
+</form>
+{% endblock %}

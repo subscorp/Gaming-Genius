@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block head %}
+<link rel="stylesheet" href="../static/registration.css" />
+{% endblock %}
+{% block content %}
+<h1>Easter eggs</h1>
+<h2>Can you find all the easter eggs in the homepage? write bellow the source of each of them</h2>
+<form action="/easter_eggs" method="POST">
+    <label class="label" for="easter_egg">Easter egg source:</label><br>
+    <input type="text" id="easter_egg" name="easter_egg"><br>
+<button class="button">Submit</button>
+</form>
+{% endblock %}

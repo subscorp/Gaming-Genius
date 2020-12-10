@@ -1,0 +1,41 @@
+body {
+    font-family: 'Lato', sans-serif;
+    background-color: #748357;
+}
+
+h1, h2 {
+	text-align: center;
+	color: rgb(57, 58, 53);
+	top: 40%;
+}
+
+form {
+    width: 280px;
+    position: relative;
+    top: 60%;
+    left: 40%;
+    justify-content: center;
+}
+
+.label {
+    color: rgb(57, 58, 53);
+	font-size: 20px;
+}
+
+.button {
+	background: green;
+	border: 2px solid black;
+	border-radius: 5px;
+	padding: 5px;
+	color: rgb(20, 20, 20);
+	font-size: 20px;
+	transition-duration: .1s;
+	margin-top: 15px;
+}
+
+.button:hover {
+	background: rgb(202, 209, 246);
+	border: 2px solid green;
+	color: black;
+	cursor: pointer;
+}
