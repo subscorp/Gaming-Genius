@@ -8,7 +8,6 @@ import random
 import json
 from html import unescape
 import os
-from playhouse.db_url import connect
 from models import Users, database, Leaderboard, EasterEggs, UserEasterEggs, Achievements, UserAchievements
 
 
