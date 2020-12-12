@@ -80,7 +80,8 @@ def search_by_username(db, username):
 def fill_easter_eggs(db):
     names = ['didyouknowgaming?', 'reggie', 'pacman', 'nintendo power', 'portal', 'zelda 2', 'star fox']
     for name in names:
-        insert_into_easter_eggs(db, (name,))
+        easter_egg = models.EasterEggs(name=name)
+        easter_egg.save()
 
 
 def fill_achievements(db):
