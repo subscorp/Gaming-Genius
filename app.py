@@ -290,7 +290,7 @@ def easter_eggs():
             if _id:
                 easter_egg_id = _id.id
                 try:
-                    UserEasterEggs.select().where(UserEasterEggs.user_id == user_id & UserEasterEggs.easter_egg_id == easter_egg_id).get()
+                    UserEasterEggs.select().where((UserEasterEggs.user_id == user_id) & (UserEasterEggs.easter_egg_id == easter_egg_id)).get()
                     user_already_has = True
                 except peewee.DoesNotExist:
                     user_already_has = False
