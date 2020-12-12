@@ -18,6 +18,8 @@ from models import database
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY')
+# app.secret_key = 'secret'  # for debug mode
+
 
 def get_quiz():
     r = requests.get('https://opentdb.com/api.php?amount=10&category=15&difficulty=easy&type=multiple')
@@ -93,10 +95,13 @@ def get_achievements(user_id):
     
 def update_achievement_by_id(user_id, achievement_id):
     try:
-        UserAchievements.select().where(UserAchievements.user_id == user_id and UserAchievements.achievement_id == achievement_id).get()
+        has_it = UserAchievements.select().where((UserAchievements.user_id == user_id) & (UserAchievements.achievement_id == achievement_id)).get()
     except peewee.DoesNotExist:
-        achievement = UserAchievements(achievement_id=achievement_id, user_id=user_id)
-        achievement.save()
+        has_it = None
+    finally:
+        if not has_it:
+            achievement = UserAchievements(achievement_id=achievement_id, user_id=user_id)
+            achievement.save()
     
 
 """@app.before_request
@@ -224,12 +229,13 @@ def play_game():
     if session['current_question'] == 11:
         if 'user' in session:
             name = session['user']
-            user_id = get_user_id(name)
+            user_id = get_user_id(name).id
             score = session['score']
             try:
-                Leaderboard.select().where(Leaderboard.user_id == user_id).get()
-                query = Leaderboard.update(score=score).where(Leaderboard.user_id == user_id)
-                query.execute()
+                leader_board_score = Leaderboard.select().where(Leaderboard.user_id == user_id).get().score
+                if score > leader_board_score:
+                    query = Leaderboard.update(score=score).where(Leaderboard.user_id == user_id)
+                    query.execute()
             except peewee.DoesNotExist:
                 leaderboard = Leaderboard(user_id=user_id, name=name, score=score)
                 leaderboard.save()
@@ -243,7 +249,7 @@ def play_game():
                 achievement_id = 3
 
             results = Leaderboard.select().where(Leaderboard.user_id == user_id).order_by(Leaderboard.score.desc()).limit(10).get()
-            if results.user_id == user_id:
+            if results.user_id.id == user_id:
                 update_achievement_by_id(user_id, 4)
 
             if achievement_id:
@@ -284,7 +290,7 @@ def easter_eggs():
             if _id:
                 easter_egg_id = _id.id
                 try:
-                    UserEasterEggs.select().where(UserEasterEggs.user_id == user_id and UserEasterEggs.easter_egg_id == easter_egg_id).get()
+                    UserEasterEggs.select().where(UserEasterEggs.user_id == user_id & UserEasterEggs.easter_egg_id == easter_egg_id).get()
                     user_already_has = True
                 except peewee.DoesNotExist:
                     user_already_has = False

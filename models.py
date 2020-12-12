@@ -6,7 +6,7 @@ from peewee import (
     SqliteDatabase, TextField,
 )
 
-#database = SqliteDatabase('trivia_game.db')
+# database = SqliteDatabase('trivia_game.db')  # for debug mode
 database = connect(os.environ.get('DATABASE_URL'))
 
 class UnknownField(object):
