@@ -13,5 +13,5 @@ def create_tables(database):
         
 db = models.database
 create_tables(db)
-# database.fill_easter_eggs(db)
+database.fill_easter_eggs(db)
 database.fill_achievements(db)
