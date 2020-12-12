@@ -94,4 +94,7 @@ def fill_achievements(db):
         ("Completionist!", "../static/Completionist.jpg")
     )
     for name in names:
-        insert_into_achievements(db, name)
+        achievement_name = name[0]
+        uri = name[1]
+        achievement = models.Achievements(achievement_name=achievement_name, uri=uri)
+        achievement.save()

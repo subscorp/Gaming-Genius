@@ -1,6 +1,6 @@
 import models
 import database
-
+ 
 def create_tables(database):
     TABLES = [
         models.Users, models.Achievements, models.EasterEggs, models.Leaderboard, models.UserAchievements,
@@ -13,5 +13,5 @@ def create_tables(database):
         
 db = models.database
 create_tables(db)
-database.fill_easter_eggs(db)
+# database.fill_easter_eggs(db)
 database.fill_achievements(db)
