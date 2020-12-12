@@ -1,13 +1,13 @@
 import os
-
+from playhouse.db_url import connect
 
 from peewee import ( 
     BareField, ForeignKeyField, IntegerField, Model,
     SqliteDatabase, TextField,
 )
 
-database = SqliteDatabase('trivia_game.db')
-
+#database = SqliteDatabase('trivia_game.db')
+database = connect(os.environ.get('DATABASE_URL'))
 
 class UnknownField(object):
     def __init__(self, *_, **__): 
