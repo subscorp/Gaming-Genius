@@ -17,7 +17,7 @@ from models import database
 
 
 app = Flask(__name__)
-app.secret_key = os.urandom(32)
+app.secret_key = os.environ.get('SECRET')
 
 def get_quiz():
     r = requests.get('https://opentdb.com/api.php?amount=10&category=15&difficulty=easy&type=multiple')
