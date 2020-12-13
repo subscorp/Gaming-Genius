@@ -243,7 +243,7 @@ def play_game():
             achievement_id = ""
             if score <= 30:
                 achievement_id = 1
-            if score >= 60 and score < 80:
+            elif score >= 60 and score < 80:
                 achievement_id = 2
             elif score >= 80:
                 achievement_id = 3
