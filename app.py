@@ -52,7 +52,7 @@ def handle_common_cases(easter_egg_source):
     elif easter_egg_source.startswith('reggie'):
         easter_egg_source = 'reggie'
     elif easter_egg_source == 'did you know gaming?':
-        easter_egg_source = 'didyouknowgaming'
+        easter_egg_source = 'didyouknowgaming?'
     elif easter_egg_source == 'zelda ii':
         easter_egg_source = 'zelda 2'
     elif easter_egg_source.startswith('star fox'):
