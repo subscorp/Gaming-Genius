@@ -30,17 +30,9 @@ input {
 	margin-top: 15px;
 }
 
-.button:hover {
-	background: rgb(202, 209, 246);
-	border: 2px solid green;
-	color: black;
-	cursor: pointer;
-}
-
-
 a.play {
 	background: green;
-	border: 2px solid black;
+	border: 3px solid black;
 	border-radius: 5px;
 	padding: 10px;
 	color: rgb(20, 20, 20);
@@ -50,9 +42,20 @@ a.play {
     text-decoration: none;
 }
 
+a.achievement {
+	background: green;
+	border: 3px solid black;
+	border-radius: 5px;
+	padding: 3px;
+	color: rgb(20, 20, 20);
+	font-size: 20px;
+    transition-duration: .1s;
+    text-decoration: none;
+}
+
 a.easter {
 	background: green;
-	border: 2px solid black;
+	border: 3px solid black;
 	border-radius: 5px;
 	padding: 10px;
 	color: rgb(20, 20, 20);
@@ -62,7 +65,7 @@ a.easter {
     text-decoration: none;
 }
 
-a.play:hover {
+.button:hover, a.play:hover, a.achievement:hover {
 	background: rgb(202, 209, 246);
 	border: 2px solid green;
 	color: black;

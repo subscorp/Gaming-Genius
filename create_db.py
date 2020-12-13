@@ -20,6 +20,7 @@ def fill_easter_eggs(db):
 
 def fill_achievements(db):
     names = (
+        ("I pushed a button and all i got was this lousy image :(", '../static/button.png'),
         ("That's what you get for guessing...", '../static/guess.jpg'),
         ("That's just ok..", "../static/pass.jpg"),
         ('Excellent! you must be cheating...', "../static/crash.jpg"),

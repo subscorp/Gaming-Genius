@@ -80,8 +80,8 @@ def get_num_achievements(user_id):
 
 def check_for_platinum(user_id):
     num_achievements = get_num_achievements(user_id)
-    if num_achievements == 6:
-        update_achievement_by_id(user_id, 7)
+    if num_achievements == 7:
+        update_achievement_by_id(user_id, 8)
 
     
 def get_achievements(user_id):
@@ -104,11 +104,12 @@ def update_achievement_by_id(user_id, achievement_id):
         if not has_it:
             achievement = UserAchievements(achievement_id=achievement_id, user_id=user_id)
             achievement.save()
+
+    return has_it
     
 
 @app.before_request
 def before_request():
-    # db.connect(os.environ.get('DATABASE_URL'))  # for heroku 
     database.connect()
     
 
@@ -244,15 +245,15 @@ def play_game():
             
             achievement_id = ""
             if score <= 30:
-                achievement_id = 1
-            elif score >= 60 and score < 80:
                 achievement_id = 2
-            elif score >= 80:
+            elif score >= 60 and score < 80:
                 achievement_id = 3
+            elif score >= 80:
+                achievement_id = 4
 
             results = Leaderboard.select().where(Leaderboard.user_id == user_id).order_by(Leaderboard.score.desc()).limit(10).get()
             if results.user_id.id == user_id:
-                update_achievement_by_id(user_id, 4)
+                update_achievement_by_id(user_id, 5)
 
             if achievement_id:
                 update_achievement_by_id(user_id, achievement_id)
@@ -305,9 +306,9 @@ def easter_eggs():
                     user_easter_egg.save()
                     num_easter_eggs = get_num_easter_eggs(user_id)
                     if num_easter_eggs == 1:
-                        achievement_id = 5
-                    elif num_easter_eggs == 7:
                         achievement_id = 6
+                    elif num_easter_eggs == 7:
+                        achievement_id = 7
                     if achievement_id:
                         update_achievement_by_id(user_id, achievement_id)
                         check_for_platinum(user_id)
@@ -332,6 +333,19 @@ def home_page():
     else:
         message = ""
     return render_template('index.j2', message=message)
+
+
+@app.route('/free_achievement')
+def get_free_achievement():
+    if 'user' in session:
+        username = session['user']
+        user_id = get_user_id(username).id
+        has_it = update_achievement_by_id(user_id, 1)
+        if has_it:
+            return "has it"
+        return 'added'
+    else:
+        return 'not logged'
 
 
 if __name__ == '__main__':
