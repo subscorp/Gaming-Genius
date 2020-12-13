@@ -49,12 +49,14 @@ def get_without_failing(Model, query):
 def handle_common_cases(easter_egg_source):
     if easter_egg_source.startswith('pac'):
         easter_egg_source = 'pacman'
-    if easter_egg_source.startswith('reggie'):
+    elif easter_egg_source.startswith('reggie'):
         easter_egg_source = 'reggie'
-    if easter_egg_source == 'did you know gaming?':
+    elif easter_egg_source == 'did you know gaming?':
         easter_egg_source = 'didyouknowgaming'
-    if easter_egg_source == 'zelda ii':
+    elif easter_egg_source == 'zelda ii':
         easter_egg_source = 'zelda 2'
+    elif easter_egg_source.startswith('star fox'):
+        easter_egg_source = 'star fox'
     return easter_egg_source
 
 
