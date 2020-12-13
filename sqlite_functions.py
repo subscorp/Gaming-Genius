@@ -1,7 +1,5 @@
 import sqlite3
 
-import models
-
 # These functions were used before the change from sqlite3 to peewee.
 
 

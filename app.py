@@ -1,6 +1,6 @@
+from html import unescape
 import os
 import random
-from html import unescape
 
 import bcrypt
 from flask import Flask, render_template, request, session
@@ -8,12 +8,11 @@ import peewee
 from playhouse.shortcuts import model_to_dict
 import requests
 
-from models import Achievements
+from models import database
 from models import EasterEggs
 from models import Leaderboard
 from models import UserAchievements
 from models import UserEasterEggs, Users
-from models import database
 
 
 app = Flask(__name__)

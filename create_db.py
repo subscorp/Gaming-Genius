@@ -1,5 +1,6 @@
 import models
- 
+
+
 def create_tables(database):
     TABLES = [
         models.Users, models.Achievements, models.EasterEggs, models.Leaderboard, models.UserAchievements,
