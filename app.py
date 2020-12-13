@@ -78,7 +78,7 @@ def get_num_achievements(user_id):
 
 def check_for_platinum(user_id):
     num_achievements = get_num_achievements(user_id)
-    if num_achievements == 7:
+    if num_achievements == 6:
         update_achievement_by_id(user_id, 7)
 
     
