@@ -104,17 +104,17 @@ def update_achievement_by_id(user_id, achievement_id):
             achievement.save()
     
 
-"""@app.before_request
+@app.before_request
 def before_request():
-    db.connect(os.environ.get('DATABASE_URL'))  # for heroku 
-    # database.connect()
+    # db.connect(os.environ.get('DATABASE_URL'))  # for heroku 
+    database.connect()
     
 
 @app.teardown_request
 def close_db(_):
     if not database.is_closed():
-        db.close()
-"""
+        database.close()
+
 
 @app.route('/profile')
 def show_profile():
