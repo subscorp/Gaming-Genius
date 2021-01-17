@@ -3,4 +3,4 @@ while competing against other users in the leaderboard and earning different ach
 There are also a number of surprises and "easter eggs" for the user to look for, making this experience much like a game in itself.
 Technologies: HTML, CSS, and JavaScript for the Front-End. Python, Flask and jinja2 for the back-End. PostgreSQL for the database.
 
-You can check it out [here](https://gaming-genius.herokuapp.com/)
+You can check it out [here](https://gaming-genius.herokuapp.com/).
